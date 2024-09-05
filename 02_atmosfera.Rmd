@@ -37,12 +37,13 @@ ggplot(atmosfera, aes(x = presion, y = temp_superficie, color = presion)) +
 temperatura_mensual <- atmosfera %>%
   group_by(mes) %>%
   summarise(temperatura_promedio = mean(temp_superficie, na.rm = TRUE))
-ggplot(atmosfera, aes(x = temperatura_mensual, y = mes)) +
-  geom_bar() +
-  theme_minimal() +
-  labs(title = "temperatura promedio mensual",
-       x = "temperatura mensual",
-       y = "mes")
+
+ggplot(temperatura_mensual,aes(x = mes, y = temperatura_promedio)) +
+    geom_line() +
+    theme_minimal() +
+    labs(title = "temperatura promedio mensual",
+         x = "mes",
+         y = "temperatura mensual")
 ```
 
 
@@ -53,7 +54,16 @@ Acordate del tema de los grupos y las líneas.)
 ¿Cómo cambia tu descripción del ciclo anual ahora?
 
 ```{r}
-
+atmosfera %>%
+  mutate(hemisferio = ifelse(sign(latitud) > 0, "Norte", "Sur")) |>
+  group_by(mes, hemisferio) %>%
+  summarise(temperatura_promedio = mean(temp_superficie, na.rm = TRUE)) |>
+  ggplot(aes(x = mes, y = temperatura_promedio)) +
+    geom_line(aes(color = hemisferio)) +
+    labs(title = "temperatura mensual promedio por hemisferio",
+         x = "Mes",
+         y = "Temperatura mensual")
+  
 ```
 
 

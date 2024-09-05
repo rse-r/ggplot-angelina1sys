@@ -9,7 +9,9 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-
+library(tidyverse)
+library(datos)
+library(ggplot2)
 # En este bloque cargá los paquetes que vas a necesitar
 
 ```
@@ -35,8 +37,12 @@ Además de escribir el código para generar el gráfico, escribí como mínimo u
 ¿Qué conclusión sacás?
 
 ```{r}
-ggplot(millas, aes(____, ____)) +
-  geom_____()
+ggplot(millas, aes(x = autopista, y = cilindros)) +
+  geom_point() +
+  theme_minimal() +
+  labs(title = "Autopista vs Cilindros",
+       x = "autopista",
+       y = "cilindros")
 ```
 
 
@@ -44,35 +50,48 @@ ggplot(millas, aes(____, ____)) +
 
 
 ```{r}
-
+ggplot(millas, aes(x = autopista, y = ciudad)) +
+  geom_point() +
+  theme_minimal() +
+  labs(title = "Autopista vs Ciudad",
+       x = "autopista",
+       y = "ciudad")
 ```
 
 
 3. ¿Qué pasa cuando haces un gráfico de  de "clase" versus "traccion"? ¿Por qué no es útil este gráfico?
 
 ```{r}
-
+ggplot(millas, aes(x = clase, y = traccion)) +
+  geom_point() +
+  theme_minimal() +
+  labs(title = "clase vs traccion",
+       x = "clase",
+       y = "traccion")
 ```
 
 
 4. En otro bloque, rehacé el gráfico de "autopista" versus "ciudad" pero ahora asigná la variable "tracción" al color de los puntos. 
 
 ```{r}
-
-```
-
-
-5. En otro bloque, rehacé el gráfico de "autopista" versus "ciudad" pero ahora asigná la variable "tracción" al color de los puntos. 
-
-```{r}
-
+ggplot(millas, aes(color = traccion, x = autopista, y = ciudad))+
+  geom_point(size = 3)+
+  labs(title = "autopista vs ciudad con traccion",
+       x = "autopista",
+       y = "ciudad", 
+       color = "traccion")
 ```
 
 
 5. ¿Qué ocurre si se asigna o mapea una estética a algo diferente del nombre de una variable, como `aes(color = cilindrada < 3)`?
 
 ```{r}
-
+ggplot(millas, aes(x = autopista, y = ciudad, color = cilindrada < 3)) +
+  geom_point() +
+  labs(title = "Gráfico con Color Basado en Condición Lógica",
+       x = "Autopista",
+       y = "Ciudad",
+       color = "Cilindrada < 3")
 ```
 
 
@@ -84,6 +103,11 @@ ggplot(millas, aes(____, ____)) +
 ¿Qué ventajas y desventajas tiene este geom?
 
 ```{r}
-
+ggplot(millas, aes(x = autopista, y = ciudad, color = cilindrada < 3)) +
+  geom_jitter() +
+  labs(title = "Gráfico con Color Basado en Condición Lógica",
+       x = "Autopista",
+       y = "Ciudad",
+       color = "Cilindrada < 3")
 ```
 

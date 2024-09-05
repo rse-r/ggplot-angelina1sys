@@ -22,14 +22,27 @@ atmosfera <- datos::atmosfera
 ¿Es una relación lineal más o menos limpia o hay otras cosas “raras”?
 
 ```{r}
-
+ggplot(atmosfera, aes(x = presion, y = temp_superficie, color = presion)) +
+  geom_point() +
+  theme_minimal() +
+  labs(title = "relacion entre la presion y la atmosfera",
+       x = "presion",
+       y = "temperatura")
 ```
 
 
 2. Calculá la temperatura media de cada mes y visualizalo en un gráfico de líneas.(Es decir, el ciclo anual promedio de temperatura). ¿Cómo describirías el ciclo anual en pocas palabras?
 
 ```{r}
-
+temperatura_mensual <- atmosfera %>%
+  group_by(mes) %>%
+  summarise(temperatura_promedio = mean(temp_superficie, na.rm = TRUE))
+ggplot(atmosfera, aes(x = temperatura_mensual, y = mes)) +
+  geom_bar() +
+  theme_minimal() +
+  labs(title = "temperatura promedio mensual",
+       x = "temperatura mensual",
+       y = "mes")
 ```
 
 

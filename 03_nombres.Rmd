@@ -20,7 +20,12 @@ nombres <- datos::nombres
 1. Calculá cuantos bebés de cada sexo fueron llamados "Mary" o "Kerry". 
 
 ```{r}
-
+bebes_mery_kerry <- nombres |> 
+  group_by(nombre, sexo) |> 
+  filter(nombre == "Mary" | nombre== "Kerry" ) |> 
+  count(nombre) |> 
+  select(nombre, sexo, n)
+print(bebes_mery_kerry)
 ```
 
 
@@ -28,20 +33,41 @@ nombres <- datos::nombres
 
 
 ```{r}
-
+nombres |> 
+  group_by(sexo) |>
+  filter(nombre == "Mary") |> 
+  ggplot(aes(x = anio, y = n)) +
+    geom_line(aes(color=sexo)) +
+    theme_minimal()+
+    labs(title = "Bebes nacidos llamados Mary",
+         x = "año",
+         y = "cantidad")
 ```
 
 3. Repetí el gráfico anterior para el nombre "Kerry".
 
 ```{r}
-
+nombres |> 
+  group_by(sexo) |> 
+  filter(nombre == "Kerry") |> 
+  ggplot(aes(x = anio, y = n)) +
+  geom_line(aes(color=sexo)) +
+  theme_minimal() +
+  labs(title = "bebes llamdos Kerry",
+       x = "año",
+       y = "cantidad")
 ```
 
 
 4. ¿Cuál fue la proporción máxima para cada sexo en cada año? Hacé un gráfico mostrando la evolución de eta variable. (podés calcular el máximo con `max(prop)`)
 
 ```{r}
-
+ggplot(nombres, aes(x= sexo, y = prop)) +
+  geom_line(aes(color=sexo, size=3)) +
+  theme_minimal()+
+  labs(title = "Proporcion maxima de f y m",
+       x = "sexo",
+       y = "proporcion")
 ```
 
 
